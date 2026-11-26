@@ -70,7 +70,7 @@ function Login() {
 
         <div className="login-card">
 
-          <h2>Welcome Back!</h2>
+          <h2>Welcome Back! </h2>
           <p className="login-description">Login to your AquaCare customer account</p>
 
           <form onSubmit={handleSubmit}>
@@ -78,7 +78,7 @@ function Login() {
             <label>Email Address</label>
             <div className="input-box">
               <Mail size={19} />
-              <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+              <input type="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
             </div>
 
             <label>Password</label>
@@ -95,7 +95,7 @@ function Login() {
                 <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
                 Remember me
               </label>
-              <a href="/forgot-password">Forgot Password?</a>
+              <a href="/forgot-password">Forgot Password ?</a>
             </div>
 
             <button type="submit" className="login-button">Login <ArrowRight size={18} /></button>
