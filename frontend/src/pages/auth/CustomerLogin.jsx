@@ -30,7 +30,7 @@ export default Login;*/}
 
 import { useState } from "react";
 import { Mail, Lock, Eye, EyeOff, Droplets, ArrowRight } from "lucide-react";
-import "./customer_login.css";
+import "./CustomerLogin.css";
 
 function Login() {
   const [email, setEmail] = useState("");
