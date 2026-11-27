@@ -1,115 +1,48 @@
-{/*import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Droplets, ArrowRight } from "lucide-react";
-import "./customer_login.css";
-
-function Login() {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [showPass, setShowPass] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(email, pass);
-  };
-
-  return (
-    <>
-      <h2>AQUACARE</h2>
-      <h3>Customer Login</h3>
-      <form onSubmit={handleSubmit}>
-        <input type="email" placeholder="Enter your email" value={email} onChange={(e) => setEmail(e.target.value)}/>
-        <input  type="password" placeholder="Enter your password" value={pass} onChange={(e) => setPass(e.target.value)} />
-        <button type="submit">Submit</button>
-      </form>  
-    </>
-    
-  );
-}
-
-export default Login;*/}
 
 import { useState } from "react";
-import { Mail, Lock, Eye, EyeOff, Droplets, ArrowRight } from "lucide-react";
-import "./CustomerLogin.css";
+import { useLocation, useNavigate } from "react-router-dom";
 
-function Login() {
-  const [email, setEmail] = useState("");
-  const [pass, setPass] = useState("");
-  const [showPass, setShowPass] = useState(false);
-  const [rememberMe, setRememberMe] = useState(false);
+function CustomerLogin() {
+    const location = useLocation();
+    const registerdata = location.state;
+    const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Email:", email);
-    console.log("Password:", pass);
-    console.log("Remember Me:", rememberMe);
-  };
+    const [logindata, setlogindata] = useState({ username: "", password: "" });
 
-  return (
-    <div className="login-page">
+    function handlesubmit(e) {
+        e.preventDefault();
+        console.log("Customer Login", logindata);
+        console.log("Register", registerdata);
 
-      {/* Left Side */}
-      <div className="login-left">
+        if (registerdata && logindata.username === registerdata.name && logindata.password === registerdata.password) {
+            console.log("Login Success");
+            navigate("/dashboard/customer", { state: logindata });
+        } else {
+            alert("Invalid Customer Username or Password");
+        }
+    }
 
-        <div className="brand">
-          <Droplets size={38} />
-          <h1>AquaCare</h1>
-        </div>
+    function handlechange(e) {
+        setlogindata({ ...logindata, [e.target.name]: e.target.value });
+    }
 
-        <div className="left-content">
-          <h2>Pure Water.<br />Better Life.</h2>
-          <p>Experience clean, safe and healthy drinking water with AquaCare.</p>
-        </div>
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-cyan-100 to-teal-200 p-5">
+            <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-xl">
+                <h1 className="text-3xl font-bold text-center text-teal-700 mb-2">AquaCare</h1>
+                <h2 className="text-2xl font-semibold text-center text-gray-800 mb-2">Customer Login</h2>
+                <p className="text-center text-gray-500 mb-6">Login to your AquaCare Customer Account</p>
 
-        <p className="left-footer">Your health begins with pure water.</p>
+                <form onSubmit={handlesubmit} className="flex flex-col gap-5">
+                    <input type="text" required placeholder="Enter your username" name="username" value={logindata.username} onChange={handlechange} className="w-full p-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-teal-500" />
 
-      </div>
+                    <input type="password" required placeholder="Enter your password" name="password" value={logindata.password} onChange={handlechange} className="w-full p-3 border border-gray-300 rounded-lg outline-none focus:ring-2 focus:ring-teal-500" />
 
-      {/* Right Side */}
-      <div className="login-right">
-
-        <div className="login-card">
-
-          <h2>Welcome Back! </h2>
-          <p className="login-description">Login to your AquaCare customer account</p>
-
-          <form onSubmit={handleSubmit}>
-
-            <label>Email Address</label>
-            <div className="input-box">
-              <Mail size={19} />
-              <input type="email" placeholder="Enter your Email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <button type="submit" className="w-full bg-teal-600 text-white p-3 rounded-lg font-semibold hover:bg-teal-700 transition duration-300">Login</button>
+                </form>
             </div>
-
-            <label>Password</label>
-            <div className="input-box">
-              <Lock size={19} />
-              <input type={showPass ? "text" : "password"} placeholder="Enter your password" value={pass} onChange={(e) => setPass(e.target.value)} required />
-              <button type="button" className="password-toggle" onClick={() => setShowPass(!showPass)}>
-                {showPass ? <EyeOff size={19} /> : <Eye size={19} />}
-              </button>
-            </div>
-
-            <div className="login-options">
-              <label className="remember">
-                <input type="checkbox" checked={rememberMe} onChange={(e) => setRememberMe(e.target.checked)} />
-                Remember me
-              </label>
-              <a href="/forgot-password">Forgot Password ?</a>
-            </div>
-
-            <button type="submit" className="login-button">Login <ArrowRight size={18} /></button>
-
-          </form>
-
-          <p className="signup-text">Don't have an account? <a href="/register">Create Account</a></p>
-
         </div>
-
-      </div>
-
-    </div>
-  );
+    );
 }
 
-export default Login;
+export default CustomerLogin;
