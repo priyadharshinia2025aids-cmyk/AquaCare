@@ -18,7 +18,7 @@ function EmployeeRegister() {
 
   function onSubmit1(data) {
     console.log(data);
-    alert("Registration successful");
+    alert("Registration successfully !");
     navigate("/login");
   }
 
